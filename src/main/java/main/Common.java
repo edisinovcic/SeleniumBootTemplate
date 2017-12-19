@@ -6,6 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static main.Starter.*;
+
 abstract public class Common {
 
     private static final String facebookURL = "https://www.facebook.com/";
@@ -23,7 +25,7 @@ abstract public class Common {
      */
 
     public static void openBrowser(String URL) {
-        Starter.driver.get(URL);
+        driver.get(URL);
     }
 
 

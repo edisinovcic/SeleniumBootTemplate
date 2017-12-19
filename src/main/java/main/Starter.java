@@ -35,11 +35,11 @@ public class Starter {
     public static void main(String[] args) {
 
         driver = new FirefoxDriver();
-
         XPATHSelector XPATHSelector = new XPATHSelector();
-
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         Common.openBrowser(startURL);
+
+        Common.logInToFacebook();
 
         try {
             logIn();

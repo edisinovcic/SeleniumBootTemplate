@@ -1,4 +1,6 @@
 package selector;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,7 +11,8 @@ import static org.openqa.selenium.By.xpath;
 
 public class XPATHSelector extends Selector {
 
-    public XPATHSelector() {}
+    public XPATHSelector() {
+    }
 
     public boolean elementExists(String selector) {
         WebElement element = driver.findElement(xpath(selector));
