@@ -1,10 +1,10 @@
 package selector;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import static main.Starter.*;
 import static org.openqa.selenium.By.xpath;
 
 public class XPATHSelector extends Selector {

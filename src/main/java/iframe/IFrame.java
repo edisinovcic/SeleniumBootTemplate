@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static main.Starter.driver;
+
 abstract public class IFrame {
 
     private static List<WebElement> iframes = new ArrayList<>();
