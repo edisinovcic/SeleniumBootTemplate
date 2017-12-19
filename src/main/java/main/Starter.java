@@ -1,5 +1,8 @@
+package main;
+
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import selector.XPATHSelector;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +35,9 @@ public class Starter {
     public static void main(String[] args) {
 
         driver = new FirefoxDriver();
+
+        XPATHSelector XPATHSelector = new XPATHSelector();
+
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         Common.openBrowser(startURL);
 

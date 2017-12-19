@@ -1,3 +1,5 @@
+package main;
+
 import selector.XPATHSelector;
 
 import java.io.*;
@@ -121,14 +123,14 @@ abstract public class Common {
             //updateFrameList();
             //printFrameListByClassName();
             System.out.println(facebookFrame.getAttribute("class"));
-            Starter.driver.switchTo().frame(facebookFrame);
+            main.Starter.driver.switchTo().frame(facebookFrame);
             click("//div[contains(@class, '_1mf _1mj')]");
             click("//*[contains(@class, '_1cb _5yk1')]");
             setText("//*[contains(@class, '_1cb _5yk1')]",
                     "Zelite jeftino i udobno ljetovati u Splitu? \n Mayanna Apartment: https://hr.airbnb.com/rooms/19257413");
 
             click("//button[contains(@type, 'submit')]");
-            Starter.driver.switchTo().frame(0);
+            main.Starter.driver.switchTo().frame(0);
 
         }
     }
@@ -154,7 +156,7 @@ abstract public class Common {
     /*
 
     public static int getNumberOfLinksOnPageCSSSelector(String CSSSelector) {
-        List<WebElement> elements = Starter.driver.findElementsByCssSelector(CSSSelector);
+        List<WebElement> elements = main.Starter.driver.findElementsByCssSelector(CSSSelector);
         return elements.size();
     }
 
@@ -172,7 +174,7 @@ abstract public class Common {
 
 
     public static List<String> getAllURLsFromPageWithCSSSelector(String elementSelector) {
-        List<WebElement> elements = Starter.driver.findElementsByCssSelector(elementSelector);
+        List<WebElement> elements = main.Starter.driver.findElementsByCssSelector(elementSelector);
         List<String> links = new ArrayList<String>();
         for (WebElement element : elements) {
             links.add(element.getAttribute("href"));
@@ -183,7 +185,7 @@ abstract public class Common {
 
     @Deprecated
     public static void crawlCurrentPage(String CSSSelector) throws InterruptedException {
-        List<WebElement> elements = Starter.driver.findElementsByCssSelector(CSSSelector);
+        List<WebElement> elements = main.Starter.driver.findElementsByCssSelector(CSSSelector);
         for (WebElement element : elements) {
             companyURLS.add(element.getAttribute("href"));
         }
@@ -192,7 +194,7 @@ abstract public class Common {
 
     @Deprecated
     public static List<String> getAllURLsFromPageWithXPATHSelector(String elementSelector) {
-        List<WebElement> elements = Starter.driver.findElementsByXPath(elementSelector);
+        List<WebElement> elements = main.Starter.driver.findElementsByXPath(elementSelector);
         List<String> links = new ArrayList<String>();
         for (WebElement element : elements) {
             links.add(element.getAttribute("href"));
