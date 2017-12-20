@@ -2,7 +2,6 @@ package main;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import selector.XPATHSelector;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,10 +31,12 @@ public class Starter {
     public static selector.XPATHSelector XPATHSelector;
     public static selector.CSSSelector CSSSelector;
 
+
     public static void main(String[] args) {
 
         driver = new FirefoxDriver();
-        XPATHSelector XPATHSelector = new XPATHSelector();
+        XPATHSelector = selector.XPATHSelector.getInstance();
+
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         Common.openBrowser(startURL);
 
@@ -50,7 +51,7 @@ public class Starter {
         //Claim book button
         XPATHSelector.click(claimBookButtonXPATHSelector);
         XPATHSelector.click(expandBookButton);
-        if((driver.getCurrentUrl().compareTo(afterClaimBookButtonURL) == 0)){
+        if ((driver.getCurrentUrl().compareTo(afterClaimBookButtonURL) == 0)) {
             System.out.println("We're on a good path!!");
         }
         XPATHSelector.click(PDFBookButton);

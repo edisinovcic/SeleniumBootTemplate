@@ -1,17 +1,18 @@
 package selector;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import static main.Starter.*;
+import static main.Starter.driver;
 import static org.openqa.selenium.By.xpath;
 
 public class XPATHSelector extends Selector {
 
-    public XPATHSelector() {
+    private static final XPATHSelector instance = new XPATHSelector();
+
+    private XPATHSelector() {
     }
 
     public boolean elementExists(String selector) {
@@ -32,6 +33,10 @@ public class XPATHSelector extends Selector {
     public WebElement findElement(String selector) {
         WebElement element = driver.findElement(xpath(selector));
         return super.findElement(element);
+    }
+
+    public static XPATHSelector getInstance() {
+        return instance;
     }
 
 

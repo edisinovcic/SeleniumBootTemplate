@@ -41,7 +41,7 @@ abstract public class Common {
     }
 
     public static void logInToFacebook(String facebookLoginEmail, String facebookLoginPassword) {
-        XPATHSelector selector = new XPATHSelector();
+        XPATHSelector selector = XPATHSelector;
         openBrowser(facebookURL);
         selector.setText(emailFacebookXPATHSelector, facebookLoginEmail);
         selector.setText(passswordFacebookXPATHSelector, facebookLoginPassword);
