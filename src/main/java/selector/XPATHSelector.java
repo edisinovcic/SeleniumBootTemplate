@@ -15,30 +15,46 @@ public class XPATHSelector extends Selector {
     private XPATHSelector() {
     }
 
+    public static XPATHSelector getInstance() {
+        return instance;
+    }
+
     public boolean elementExists(String selector) {
+        return elementExists(driver, selector);
+    }
+
+    public boolean elementExists(RemoteWebDriver driver, String selector) {
         WebElement element = driver.findElement(xpath(selector));
         return super.elementExists(element);
     }
 
     public boolean click(String selector) {
+        return click(driver, selector);
+    }
+
+    public boolean click(RemoteWebDriver driver, String selector) {
         WebElement element = driver.findElement(xpath(selector));
         return super.click(element);
     }
 
-    public boolean setText(String selector, String text) {
+
+    public boolean setText(RemoteWebDriver driver, String selector, String text) {
         WebElement element = driver.findElement(xpath(selector));
         return super.setText(element, text);
     }
 
+    public boolean setText(String selector, String text) {
+        return setText(driver, selector, text);
+    }
+
     public WebElement findElement(String selector) {
+        return findElement(driver, selector);
+    }
+
+    public WebElement findElement(RemoteWebDriver driver, String selector) {
         WebElement element = driver.findElement(xpath(selector));
         return super.findElement(element);
     }
-
-    public static XPATHSelector getInstance() {
-        return instance;
-    }
-
 
     //---------------------------------------------------------
 

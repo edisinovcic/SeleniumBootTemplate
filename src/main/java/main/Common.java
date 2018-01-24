@@ -1,5 +1,6 @@
 package main;
 
+import org.openqa.selenium.remote.RemoteWebDriver;
 import selector.XPATHSelector;
 
 import java.io.*;
@@ -25,6 +26,11 @@ abstract public class Common {
      */
 
     public static void openBrowser(String URL) {
+        openBrowser(driver, URL);
+    }
+
+
+    public static void openBrowser(RemoteWebDriver driver, String URL){
         driver.get(URL);
     }
 
@@ -42,7 +48,7 @@ abstract public class Common {
 
     public static void logInToFacebook(String facebookLoginEmail, String facebookLoginPassword) {
         XPATHSelector selector = XPATHSelector;
-        openBrowser(facebookURL);
+        openBrowser(driver, facebookURL);
         selector.setText(emailFacebookXPATHSelector, facebookLoginEmail);
         selector.setText(passswordFacebookXPATHSelector, facebookLoginPassword);
         selector.click(loginButtonFacebookXPATHSelector);
