@@ -1,4 +1,4 @@
-package main;
+package common;
 
 import org.openqa.selenium.remote.RemoteWebDriver;
 import selector.XPATHSelector;
@@ -6,10 +6,13 @@ import selector.XPATHSelector;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
-import static main.Starter.*;
+import static main.Starter.XPATHSelector;
+import static main.Starter.driver;
 
-abstract public class Common {
+abstract public class CommonMethods {
 
     private static final String facebookURL = "https://www.facebook.com/";
     private static String emailFacebookXPATHSelector = "//*[contains(@id, 'email')]";
@@ -25,15 +28,23 @@ abstract public class Common {
      * Selenium common methods
      */
 
-    public static void openBrowser(String URL) {
-        openBrowser(driver, URL);
+    public static void openURL(String URL) {
+        openURL(driver, URL);
     }
 
 
-    public static void openBrowser(RemoteWebDriver driver, String URL){
+    public static void openURL(RemoteWebDriver driver, String URL) {
         driver.get(URL);
     }
 
+    public static void randomSleep(){
+        Random random = new Random();
+        try {
+            Thread.sleep(random.nextInt(2000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     //------------------------------------------------------------------------------------
@@ -48,7 +59,7 @@ abstract public class Common {
 
     public static void logInToFacebook(String facebookLoginEmail, String facebookLoginPassword) {
         XPATHSelector selector = XPATHSelector;
-        openBrowser(driver, facebookURL);
+        openURL(driver, facebookURL);
         selector.setText(emailFacebookXPATHSelector, facebookLoginEmail);
         selector.setText(passswordFacebookXPATHSelector, facebookLoginPassword);
         selector.click(loginButtonFacebookXPATHSelector);
@@ -97,7 +108,6 @@ abstract public class Common {
     }
 
     //--------------------------------------------------------------------------------------
-
 
 
     //------------------------------------------------------------------------------------

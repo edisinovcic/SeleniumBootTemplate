@@ -1,5 +1,6 @@
 package main;
 
+import common.CommonMethods;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -38,9 +39,9 @@ public class Starter {
         XPATHSelector = selector.XPATHSelector.getInstance();
 
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        Common.openBrowser(startURL);
+        CommonMethods.openURL(startURL);
 
-        Common.logInToFacebook();
+        CommonMethods.logInToFacebook();
 
         try {
             logIn();
