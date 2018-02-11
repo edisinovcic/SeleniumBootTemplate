@@ -26,8 +26,8 @@ public class Starter {
     public static final String PDFBookButton = "id(\"product-account-list\")/div[1]/div[2]/div[2]/a[1]/div[1]";
     public static final String codeFilesBookButton = "id(\"product-account-list\")/div[1]/div[2]/div[2]/a[4]/div[1]/div[3]";
 
-    public static final String email = "edi.sinovcic@eestec-zg.hr";
-    public static final String password = "Mandrilo@7612";
+    public static final String email = "";
+    public static final String password = "";
 
     public static selector.XPATHSelector XPATHSelector;
     public static selector.CSSSelector CSSSelector;
