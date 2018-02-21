@@ -3,24 +3,31 @@ package iframe;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.Starter.driver;
+public class IFrame {
 
-abstract public class IFrame {
+    RemoteWebDriver driver;
+    private List<WebElement> iframes = new ArrayList<>();
 
-    private static List<WebElement> iframes = new ArrayList<>();
+    public IFrame(RemoteWebDriver driver) {
+        this.driver = driver;
+        updateFrameList();
+    }
 
-    public static String getCurrentFrame() {
+
+    public String getCurrentFrame() {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         String currentFrame = (String) jsExecutor.executeScript("return self.name");
         return currentFrame;
     }
 
 
-    public static WebElement returnFacebookFrame() {
+    public WebElement returnFacebookFrame() {
         final List<WebElement> iframes = driver.findElements(By.tagName("iframe"));
 
         int i = 0;
@@ -33,12 +40,12 @@ abstract public class IFrame {
         return null;
     }
 
-    public static void updateFrameList() {
+    public void updateFrameList() {
         iframes = driver.findElements(By.tagName("iframe"));
     }
 
 
-    public static void printFrameListByClassName() {
+    public void printFrameListByClassName() {
         System.out.println("Iframes id list:");
         for (WebElement iframe : iframes) {
             System.out.println(iframe.getAttribute("class"));

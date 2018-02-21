@@ -1,15 +1,18 @@
-package main;
+package starters.facebook;
 
 import common.CommonMethods;
+import common.LoginMethods;
+import driver.DriverType;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import selector.XPATHSelector;
 
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
+public class FacebookStarter {
 
-public class Starter {
 
     public static RemoteWebDriver driver;
 
@@ -17,7 +20,7 @@ public class Starter {
     public static final String loginURL = "https://www.packtpub.com/packt/offers/free-learning?from=block";
     public static final String openLoginScreenXPATHSelector = "id(\"account-bar-login-register\")/a[1]/div[1]";
     public static final String emailFieldXPATHSelector = "id(\"email\")";
-    public static final String passwordFieldXPATHSelector = "id(\"password\")";
+    public static final String passwordFieldXPATHSelector = "id(\"instagramPassword\")";
     public static final String submitButtonXPATHSelector = "id(\"edit-submit-1\")";
     public static final String claimBookButtonXPATHSelector = "id(\"free-learning-claim\")";
 
@@ -36,10 +39,16 @@ public class Starter {
     public static void main(String[] args) {
 
         driver = new FirefoxDriver();
-        XPATHSelector = selector.XPATHSelector.getInstance();
+        XPATHSelector = new XPATHSelector(driver);
 
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        CommonMethods.openURL(startURL);
+        XPATHSelector.openURL(startURL);
+
+        LoginMethods loginMethods = new LoginMethods(driver, XPATHSelector);
+
+
+        loginMethods.logInToFacebook("sda", "sda");
+
 
         CommonMethods.logInToFacebook();
 
