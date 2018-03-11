@@ -1,57 +1,31 @@
 package starters.instagram
 
-import common.CommonMethods.openURL
-import common.CommonMethods.randomSleep
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.remote.RemoteWebDriver
-import selector.CSSSelector
-import selector.XPATHSelector
-import starters.Constants.Companion.addNewPeopleURL
-import starters.Constants.Companion.followBtnXPATHSelector
-import starters.Constants.Companion.instagramStart
-import starters.Constants.Companion.logInBtnSelector
-import starters.Constants.Companion.logInToInstagramBtnXPATHSelector
-import starters.Constants.Companion.instagramPassword
-import starters.Constants.Companion.passwordXPATHSelector
-import starters.Constants.Companion.instagramUsername
-import starters.Constants.Companion.usernameXPATHSelector
-import java.util.concurrent.TimeUnit
-
-
-var driver: RemoteWebDriver? = null
-lateinit var XPATHSelector: XPATHSelector
-lateinit var CSSSelector: CSSSelector
+import common.Helpers
+import common.InstagramConstants.Companion.addNewPeopleInstagramPage
+import common.InstagramConstants.Companion.instagramFollowBtnXPATHSelector
+import common.InstagramConstants.Companion.instagramPassword
+import common.InstagramConstants.Companion.instagramUsername
+import driver.DriverType
+import selector.SelectorType
 
 
 fun main(args: Array<String>) {
-    val driver = FirefoxDriver()
 
-    instagramUsername = args?.get(0)
-    instagramPassword = args?.get(1)
+    instagramUsername = args[0]
+    instagramPassword = args[1]
 
-    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS)
-    openURL(driver, instagramStart)
+    print("Facebook login data:\n")
+    print("Email: $instagramUsername\n")
+    print("Password: $instagramPassword\n")
 
-    XPATHSelector.click(logInBtnSelector)
-    randomSleep()
-    XPATHSelector.click(usernameXPATHSelector)
-    XPATHSelector.setText(usernameXPATHSelector, instagramUsername)
-    randomSleep()
-    XPATHSelector.click(passwordXPATHSelector)
-    XPATHSelector.setText(passwordXPATHSelector, instagramPassword)
-    randomSleep()
+    val helpers: Helpers = Helpers(SelectorType.XPATH, DriverType.FIREFOX)
 
+    helpers.logInToInstagram(instagramUsername, instagramPassword)
+    helpers.selector.openURL(addNewPeopleInstagramPage)
 
-    XPATHSelector.click(logInToInstagramBtnXPATHSelector)
+    val numberOfPeople = 20 //TODO: should be changed to number of people on page
 
-    randomSleep()
-    openURL(driver, addNewPeopleURL)
-
-    randomSleep()
-    for (i in 1..20) {
-        XPATHSelector.click(followBtnXPATHSelector + """[${i}]""")
-        randomSleep()
-    }
-
+    helpers.clickAllLinksInTheList((1..numberOfPeople).map { instagramFollowBtnXPATHSelector + """[${it}]""" })
+    print("Success!!")
 
 }
