@@ -42,4 +42,6 @@ fun main(args: Array<String>) {
     }
 
     helper.setExplicitTimetout(60)
+
+    helper.driver.close()
 }
