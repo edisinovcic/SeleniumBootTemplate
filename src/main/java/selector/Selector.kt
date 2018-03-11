@@ -1,9 +1,9 @@
 package selector
 
+import common.Constants.Companion.randomSleepMaxTime
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.remote.RemoteWebDriver
 import selectordriver.SelectorInterface
-import common.Constants.Companion.randomSleepMaxTime
 import java.util.*
 
 abstract class Selector(var driver: RemoteWebDriver) : SelectorInterface {
@@ -13,6 +13,10 @@ abstract class Selector(var driver: RemoteWebDriver) : SelectorInterface {
             return true
         }
         return false
+    }
+
+    override fun clickLastInList(selectorList: List<WebElement>) {
+        click(selectorList[selectorList.size - 1])
     }
 
     override fun waitForElement(element: WebElement): Boolean {
@@ -39,6 +43,10 @@ abstract class Selector(var driver: RemoteWebDriver) : SelectorInterface {
 
     override fun randomSleep() {
         Thread.sleep(Random().nextInt(randomSleepMaxTime).toLong())
+    }
+
+    override fun randomSleep(sleep: Long) {
+        Thread.sleep(sleep)
     }
 
 

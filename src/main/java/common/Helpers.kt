@@ -4,6 +4,7 @@ import common.InstagramConstants.Companion.instagramPasswordXPATHSelector
 import common.InstagramConstants.Companion.instagramURL
 import common.InstagramConstants.Companion.instagramlogInBtnSelector
 import driver.DriverType
+import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import selector.CSSSelector
@@ -32,9 +33,8 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS)
     }
 
-
-    fun logInToFacebook() {
-        logInToFacebook(FacebookConstants.facebookLoginEmail, FacebookConstants.facebookLoginPassword)
+    fun setExplicitTimetout(seconds: Long){
+        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS)
     }
 
     fun logInToFacebook(facebookLoginEmail: String, facebookLoginPassword: String) {
@@ -47,11 +47,6 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         selector.setText(FacebookConstants.emailFacebookXPATHSelector, facebookLoginEmail)
         selector.setText(FacebookConstants.passswordFacebookXPATHSelector, facebookLoginPassword)
         selector.click(FacebookConstants.loginButtonFacebookXPATHSelector)
-    }
-
-
-    fun logInToInstagram() {
-        logInToInstagram(InstagramConstants.instagramUsername, InstagramConstants.instagramPassword)
     }
 
     fun logInToInstagram(instagramUsername: String, instagramPassword: String) {
@@ -70,11 +65,38 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         selector.click(instagramlogInBtnSelector)
     }
 
+
+    fun logInToLinkedIn(email: String, password: String) {
+        LinkedInConstants.linkedInUsername = email
+        LinkedInConstants.linkedInPassword = password
+        selector.openURL(LinkedInConstants.startURL)
+        selector.randomSleep()
+        selector.click(LinkedInConstants.emailXPATHSelector)
+        selector.randomSleep()
+        selector.setText(LinkedInConstants.emailXPATHSelector, email)
+        selector.randomSleep()
+        selector.click(LinkedInConstants.passwordXPATHSelector)
+        selector.randomSleep()
+        selector.setText(LinkedInConstants.passwordXPATHSelector, password)
+        selector.randomSleep()
+        selector.click(LinkedInConstants.signInBtnXPATH)
+        print("Success! You are logged in!")
+
+    }
+
     fun clickAllLinksInTheList(stringSelectors: List<String>) {
         stringSelectors.forEach {
             selector.click(it)
             selector.randomSleep()
         }
+    }
+
+    fun clickAllLinksInTheList(selectors: List<WebElement>): Boolean{
+        selectors.forEach{
+            selector.click(it)
+            selector.randomSleep()
+        }
+        return true
     }
 
 //----------------------------------------------------------------------------------------------------------------

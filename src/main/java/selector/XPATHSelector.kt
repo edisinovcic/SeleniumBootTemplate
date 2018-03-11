@@ -5,6 +5,25 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.remote.RemoteWebDriver
 
 class XPATHSelector(driver: RemoteWebDriver) : Selector(driver) {
+    override fun findElement(selector: String): WebElement {
+        return driver.findElement(xpath(selector))
+    }
+
+    override fun findAll(selector: String): List<WebElement> {
+        val webElements = arrayListOf<WebElement>()
+        var i = 1
+        try {
+            while (elementExists("""$selector[${i}]""")) {
+                webElements.add(findElement("""$selector[${i}]"""))
+                i++
+                print("""Number of elements:""" + webElements.size + "\n")
+            }
+        } catch (e: Exception) {
+            return webElements
+        }
+        return webElements
+    }
+
 
     override fun elementExists(selector: String): Boolean {
         val element: WebElement = driver.findElement(xpath(selector))

@@ -14,4 +14,8 @@ interface SelectorInterface {
     fun waitForElement(element: String): Boolean
     fun openURL(url: String)
     fun randomSleep()
+    fun randomSleep(sleep: Long)
+    fun clickLastInList(selectorList: List<WebElement>)
+    fun findAll(selector: String): List<WebElement>
+    fun findElement(selector: String): WebElement
 }
