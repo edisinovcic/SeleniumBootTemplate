@@ -3,7 +3,7 @@ package selector
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.remote.RemoteWebDriver
 import selectordriver.SelectorInterface
-import starters.Constants.Companion.randomSleepMaxTime
+import common.Constants.Companion.randomSleepMaxTime
 import java.util.*
 
 abstract class Selector(var driver: RemoteWebDriver) : SelectorInterface {

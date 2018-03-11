@@ -1,82 +1,118 @@
-package common;
+package common
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import common.InstagramConstants.Companion.instagramPasswordXPATHSelector
+import common.InstagramConstants.Companion.instagramURL
+import common.InstagramConstants.Companion.instagramlogInBtnSelector
+import driver.DriverType
+import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.firefox.FirefoxDriver
+import selector.CSSSelector
+import selector.SelectorType
+import selector.XPATHSelector
+import java.io.*
+import java.util.*
+import java.util.concurrent.TimeUnit
 
-abstract public class CommonMethods {
+
+class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInterface {
 
 
-    //-----------------------------------------------------------------------------------
+    inline fun <reified T> cast(from: Any): T? = from as? T
 
+    override var driver = if (driverType == DriverType.FIREFOX) FirefoxDriver()
+    else ChromeDriver()
 
-    //------------------------------------------------------------------------------------
-
-    /**
-     * Login to facebook with email and instagramPassword or with default ones
-     */
-
-    public static void logInToFacebook() {
-        logInToFacebook(facebookLoginEmail, facebookLoginPassword);
+    override var selector = if (selectorType == SelectorType.XPATH) {
+        XPATHSelector(driver)
+    } else {
+        CSSSelector(driver)
     }
 
-    public static void logInToFacebook(String facebookLoginEmail, String facebookLoginPassword) {
-        XPATHSelector selector = new XPATHSelector();
-        openURL(facebookURL);
-        selector.setText(emailFacebookXPATHSelector, facebookLoginEmail);
-        selector.setText(passswordFacebookXPATHSelector, facebookLoginPassword);
-        selector.click(loginButtonFacebookXPATHSelector);
+    init {
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS)
     }
 
 
-    //-------------------------------------------------------------------------------------
+    fun logInToFacebook() {
+        logInToFacebook(FacebookConstants.facebookLoginEmail, FacebookConstants.facebookLoginPassword)
+    }
 
-    /**
-     * File manipulation methods
-     */
+    fun logInToFacebook(facebookLoginEmail: String, facebookLoginPassword: String) {
+
+        //Optional
+        FacebookConstants.facebookLoginEmail = facebookLoginEmail
+        FacebookConstants.facebookLoginPassword = facebookLoginPassword
+
+        selector.openURL(FacebookConstants.facebookURL)
+        selector.setText(FacebookConstants.emailFacebookXPATHSelector, facebookLoginEmail)
+        selector.setText(FacebookConstants.passswordFacebookXPATHSelector, facebookLoginPassword)
+        selector.click(FacebookConstants.loginButtonFacebookXPATHSelector)
+    }
 
 
-    public static void createFileIfFileDoesNotExists(String url) throws IOException {
-        File file = new File(url);
+    fun logInToInstagram() {
+        logInToInstagram(InstagramConstants.instagramUsername, InstagramConstants.instagramPassword)
+    }
+
+    fun logInToInstagram(instagramUsername: String, instagramPassword: String) {
+        InstagramConstants.instagramUsername = instagramUsername
+        InstagramConstants.instagramPassword = instagramPassword
+        selector.openURL(instagramURL)
+        selector.randomSleep()
+        selector.click(instagramlogInBtnSelector)
+        selector.randomSleep()
+        selector.setText(instagramlogInBtnSelector, instagramUsername)
+        selector.randomSleep()
+        selector.click(instagramPasswordXPATHSelector)
+        selector.randomSleep()
+        selector.setText(instagramPasswordXPATHSelector, instagramPassword)
+        selector.randomSleep()
+        selector.click(instagramlogInBtnSelector)
+    }
+
+    fun clickAllLinksInTheList(stringSelectors: List<String>) {
+        stringSelectors.forEach {
+            selector.click(it)
+            selector.randomSleep()
+        }
+    }
+
+//----------------------------------------------------------------------------------------------------------------
+
+    fun createFileIfFileDoesNotExist(path: String) {
+        val file = File(path)
         if (!file.exists()) {
-            file.createNewFile();
+            file.createNewFile()
         }
     }
 
-
-    public static List<String> readFromFile(String file) throws IOException {
-        createFileIfFileDoesNotExists(file);
-        List<String> URLSFromFile = new ArrayList<String>();
+    fun readFromFile(file: String): List<String> {
+        createFileIfFileDoesNotExist(file)
+        val fileContent = ArrayList<String>()
         while (true) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                URLSFromFile.add(line);
+            var line: String
+            val br = BufferedReader(FileReader(file))
+            //TODO: check if this will work when EOF is received
+            br.readLine().let {
+                fileContent.add(it)
             }
-            return URLSFromFile;
+            return fileContent
         }
     }
 
-
-    public static void writeURLSToFile(String urlsFile, List<String> pageURLS)
-            throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new FileOutputStream(urlsFile));
-        StringBuilder output = new StringBuilder();
-        for (String element : pageURLS) {
-            output.append(element).append("\n");
+    fun writeToFile(file: String, content: List<String>) {
+        val pw = PrintWriter(FileOutputStream(file))
+        val output = StringBuilder()
+        content.forEach {
+            output.append(it).append("\n")
         }
-        System.out.println(output);
-        pw.write(output.toString());
-        pw.close();
+        pw.write(output.toString())
+        pw.close()
     }
-
-    //--------------------------------------------------------------------------------------
-
-
-    //------------------------------------------------------------------------------------
+}
 
 
-    /*
+/*
 
     public static void addOnlyNewURLSToFile(String urlsFile, List<String> oldList,
                                             List<String> newList)
@@ -184,4 +220,3 @@ abstract public class CommonMethods {
     }
 
     */
-}
