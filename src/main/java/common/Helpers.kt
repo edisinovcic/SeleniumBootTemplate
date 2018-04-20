@@ -33,7 +33,7 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS)
     }
 
-    fun setExplicitTimetout(seconds: Long){
+    fun setExplicitTimetout(seconds: Long) {
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS)
     }
 
@@ -91,13 +91,14 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         }
     }
 
-    fun clickAllLinksInTheList(selectors: List<WebElement>): Boolean{
-        selectors.forEach{
+    fun clickAllLinksInTheList(selectors: List<WebElement>): Boolean {
+        selectors.forEach {
             selector.click(it)
             selector.randomSleep()
         }
         return true
     }
+
 
 //----------------------------------------------------------------------------------------------------------------
 
@@ -131,6 +132,7 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         pw.write(output.toString())
         pw.close()
     }
+
 }
 
 
@@ -188,11 +190,11 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         writer.close();
     }
 
-    */
+
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
 
-    /*
+
 
     public static int getNumberOfLinksOnPageCSSSelector(String CSSSelector) {
         List<WebElement> elements = main.Starter.driver.findElementsByCssSelector(CSSSelector);
@@ -241,4 +243,5 @@ class Helpers(selectorType: SelectorType, driverType: DriverType) : HelpersInter
         return links;
     }
 
-    */
+
+*/
